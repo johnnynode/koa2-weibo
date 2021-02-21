@@ -8,12 +8,18 @@ const logger = require('koa-logger')
 const redis = require('koa-redis')
 const session = require('koa-generic-session')
 const { REDIS_CONF } = require('./conf/db')
+const { isProd } = require('./utils/env')
 
+// 注册路由
 const index = require('./routes/index')
 const users = require('./routes/users')
+const error = require('./routes/view/error')
+
+// 错误处理配置
+const errorConf = isProd ? { 'redirect': '/error' } : {}
 
 // error handler
-onerror(app)
+onerror(app, errorConf)
 
 // middlewares
 app.use(bodyparser({
@@ -43,19 +49,10 @@ app.use(session({
     })
 }))
 
-/*
-// logger
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})
-*/
-
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(error.routes(), users.allowedMethods()) // error,404路由注册到最后面
 
 // error-handling
 app.on('error', (err, ctx) => {
