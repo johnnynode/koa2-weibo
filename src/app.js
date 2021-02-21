@@ -26,7 +26,7 @@ app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
 }))
-
+debugger
 // 注册路由之前要注册session
 app.keys = ['sssdesssiIIIssw#?1wr09902s!$'] // 用于加密cookie的字符串, 随便写一个
 app.use(session({
