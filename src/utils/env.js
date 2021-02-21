@@ -3,7 +3,7 @@
  * @author johnnynode
  */
 
-const ENV = process.env.NODE_ENV;
+const ENV = process.env.NODE_ENV
 
 module.exports = {
     isDev: ENV === 'dev',

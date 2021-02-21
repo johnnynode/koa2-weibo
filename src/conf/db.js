@@ -3,7 +3,7 @@
  * @author johnnynode
  */
 
-const { isProd } = require('../utils/env');
+const { isProd } = require('../utils/env')
 
 // redis 配置
 let REDIS_CONF = {

@@ -21,10 +21,10 @@ router.get('/json2', async(ctx, next) => {
     if (!session.viewNum) {
         session.viewNum = 0
     }
-    session.viewNum++;
+    let viewNum = ++session.viewNum
     ctx.body = {
         title: 'koa2 json',
-        viewNum: session.viewNum
+        viewNum
     }
 })
 

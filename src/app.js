@@ -28,7 +28,7 @@ app.use(views(__dirname + '/views', {
 }))
 
 // 注册路由之前要注册session
-app.keys = ['sssdesssiIIIssw#?1wr09902s!$']; // 用于加密cookie的字符串, 随便写一个
+app.keys = ['sssdesssiIIIssw#?1wr09902s!$'] // 用于加密cookie的字符串, 随便写一个
 app.use(session({
     key: 'weibo.sid', // cookie name , 默认是 koa.sid
     prefix: 'weibo:sess:', // redis key 的前缀, 默认是 koa:sess, session的简称
@@ -60,6 +60,6 @@ app.use(users.routes(), users.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
-});
+})
 
 module.exports = app
