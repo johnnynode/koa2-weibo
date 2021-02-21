@@ -8,7 +8,7 @@ function sum(a, b) {
 }
 
 /**
- * 这个test函数是jest提供的
+ * 这个test和expect函数是jest提供的
  * @param {string} des 测试描述
  * @param {string} callback 测试回调函数
  */
