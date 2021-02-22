@@ -7,8 +7,17 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const redis = require('koa-redis')
 const session = require('koa-generic-session')
+const kjwt = require('koa-jwt')
 const { REDIS_CONF } = require('./conf/db')
 const { isProd } = require('./utils/env')
+const { SECRET } = require('./conf/constants')
+
+// 配置koa-jwt中间件
+app.use(kjwt({
+    secret: SECRET
+}).unless({
+    path: [/^\/users\/login/] // 忽略jwt验证的路由
+}))
 
 // 注册路由
 const index = require('./routes/index')
