@@ -4,6 +4,7 @@
  */
 
 const seq = require('./seq')
+require('./model')
 
 // 测试连接，成功后注释掉，仅用于测试
 seq.authenticate().then(() => {
