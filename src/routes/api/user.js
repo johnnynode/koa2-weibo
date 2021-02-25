@@ -9,7 +9,8 @@ const {
     register,
     login,
     deleteCurUser,
-    changeInfo
+    changeInfo,
+    changePassword
 } = require('../../controller/user')
 const userValidate = require('../../validator/user')
 const { genValidator } = require('../../middlewares/validator')
@@ -53,6 +54,13 @@ router.post('/delete', loginCheck, async(ctx, next) => {
 router.patch('/changeInfo', loginCheck, genValidator(userValidate), async(ctx, next) => {
     const { nickName, city, picture } = ctx.request.body
     ctx.body = await changeInfo(ctx, { nickName, city, picture })
+})
+
+// 修改密码
+router.patch('/changePassword', loginCheck, genValidator(userValidate), async(ctx, next) => {
+    const { password, newPassword } = ctx.request.body
+    const { userName } = ctx.session.userInfo
+    ctx.body = await changePassword(userName, password, newPassword)
 })
 
 module.exports = router
