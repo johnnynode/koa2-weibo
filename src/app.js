@@ -1,3 +1,4 @@
+const path = require('path')
 const Koa = require('koa')
 const app = new Koa()
 const views = require('koa-views')
@@ -8,6 +9,8 @@ const logger = require('koa-logger')
 const redis = require('koa-redis')
 const session = require('koa-generic-session')
 const kjwt = require('koa-jwt')
+const koaStatic = require('koa-static')
+
 const { REDIS_CONF } = require('./conf/db')
 const { isProd } = require('./utils/env')
 const { SESSION_SECRET_KEY, JWT_SECRET_KEY } = require('./conf/secretKeys')
@@ -30,6 +33,7 @@ const viewErrorRouter = require('./routes/view/error') // 404或错误
 
 // api 相关路由整理
 const apiUserRouter = require('./routes/api/user') // api 用户
+const apiUtilsRouter = require('./routes/api/utils')
 
 // 错误处理配置
 const errorConf = isProd ? { 'redirect': '/error' } : {}
@@ -43,7 +47,8 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
@@ -67,6 +72,7 @@ app.use(session({
 
 // 路由配置 api
 app.use(apiUserRouter.routes(), apiUserRouter.allowedMethods()) // 用户
+app.use(apiUtilsRouter.routes(), apiUtilsRouter.allowedMethods()) // 工具
 
 // 路由配置 view
 app.use(index.routes(), index.allowedMethods())
