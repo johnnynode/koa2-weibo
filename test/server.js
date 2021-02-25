@@ -4,6 +4,6 @@
  */
 
 const request = require('supertest')
-const server = require('../app').callback() // 执行app的callback函数
+const server = require('../src/app').callback() // 执行app的callback函数
 
 module.exports = request(server)

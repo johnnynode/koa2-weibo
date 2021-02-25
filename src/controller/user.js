@@ -5,7 +5,8 @@
 
 const {
     getUserInfo,
-    createUser
+    createUser,
+    deleteUser
 } = require('../services/user')
 
 const { SuccessModel, ErrorModel } = require('../model/resModel')
@@ -15,6 +16,7 @@ const {
     registerUserNameExistInfo,
     registerFailInfo,
     loginFailInfo,
+    deleteUserFailInfo
 } = require('../model/errorInfo')
 
 const doCrypto = require('../utils/cryp') // 加密
@@ -81,8 +83,18 @@ async function login(ctx, userName, password) {
     return new SuccessModel()
 }
 
+/**
+ * 删除当前用户
+ * @param {string} userName 用户名
+ */
+async function deleteCurUser(userName) {
+    const result = await deleteUser(userName)
+    return result ? new SuccessModel() : new ErrorModel(deleteUserFailInfo)
+}
+
 module.exports = {
     isExist,
     register,
-    login
+    login,
+    deleteCurUser
 }
