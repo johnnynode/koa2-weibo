@@ -5,8 +5,10 @@
 
 
 
-const apiBlogHomeRouter = require('./home')
+const Home = require('./home')
+const Profile = require('./profile')
 
 module.exports = {
-    apiBlogHomeRouter,
+    Home,
+    Profile
 }

@@ -48,8 +48,6 @@ test('登录，应该成功', async() => {
 })
 */
 
-
-
 test('创建一条微博，应该成功', async() => {
     // 定义测试内容
     const content = '单元测试自动创建的微博_' + Date.now()
