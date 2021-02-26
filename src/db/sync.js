@@ -13,8 +13,8 @@ seq.authenticate().then(() => {
     console.log('err')
 })
 
-// 执行同步 force 不想要重新建表，去除force配置即可
-seq.sync({ force: true }).then(() => {
+// 执行同步 force 不想要重新建表，去除sync函数中的 force配置即可 { force: true }
+seq.sync().then(() => {
     console.log('sync ok')
     process.exit() // 程序退出
 })
