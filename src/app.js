@@ -24,16 +24,17 @@ app.use(kjwt({
 }))
 */
 
-// 注册路由
-const index = require('./routes/index')
+// api 相关路由整理
+const apiUserRouter = require('./routes/api/user') // api user
+const { apiBlogHomeRouter } = require('./routes/api/blog') // api blog
+
+const apiUtilsRouter = require('./routes/api/utils')
 
 // view 相关路由整理
-const viewUserRouter = require('./routes/view/user') // view 用户
-const viewErrorRouter = require('./routes/view/error') // 404或错误
+const viewUserRouter = require('./routes/view/user') // view user
+const viewBlogRouter = require('./routes/view/blog') // view blog
 
-// api 相关路由整理
-const apiUserRouter = require('./routes/api/user') // api 用户
-const apiUtilsRouter = require('./routes/api/utils')
+const viewErrorRouter = require('./routes/view/error') // 404或错误
 
 // 错误处理配置
 const errorConf = isProd ? { 'redirect': '/error' } : {}
@@ -72,11 +73,12 @@ app.use(session({
 
 // 路由配置 api
 app.use(apiUserRouter.routes(), apiUserRouter.allowedMethods()) // 用户
+app.use(apiBlogHomeRouter.routes(), apiBlogHomeRouter.allowedMethods()) // 微博首页
 app.use(apiUtilsRouter.routes(), apiUtilsRouter.allowedMethods()) // 工具
 
 // 路由配置 view
-app.use(index.routes(), index.allowedMethods())
 app.use(viewUserRouter.routes(), viewUserRouter.allowedMethods()) // 用户
+app.use(viewBlogRouter.routes(), viewBlogRouter.allowedMethods()) // 微博
 app.use(viewErrorRouter.routes(), viewErrorRouter.allowedMethods()) // error,404路由注册到最后面
 
 // error-handling

@@ -1,6 +1,6 @@
 /**
  * @description 基于 jquery 封装 ajax
- * @author 双越老师
+ * @author johnnynode
  */
 
 (function(window, $) {
@@ -12,35 +12,35 @@
     window.ajax = {}
 
     // get 请求
-    window.ajax.get = function (url, callback) {
-        ajaxFn('get', url, null, callback)
-    }
-    // post 请求
-    window.ajax.post = function (url, params, callback) {
-        if (typeof params === 'function') {
-            callback = params
-            params = {}
+    window.ajax.get = function(url, callback) {
+            ajaxFn('get', url, null, callback)
         }
-        ajaxFn('post', url, params, callback)
-    }
-    // patch 请求
-    window.ajax.patch = function (url, params, callback) {
-        if (typeof params === 'function') {
-            callback = params
-            params = {}
+        // post 请求
+    window.ajax.post = function(url, params, callback) {
+            if (typeof params === 'function') {
+                callback = params
+                params = {}
+            }
+            ajaxFn('post', url, params, callback)
         }
-        ajaxFn('patch', url, params, callback)
-    }
-    // delete 请求
-    window.ajax.delete = function (url, params, callback) {
-        if (typeof params === 'function') {
-            callback = params
-            params = {}
+        // patch 请求
+    window.ajax.patch = function(url, params, callback) {
+            if (typeof params === 'function') {
+                callback = params
+                params = {}
+            }
+            ajaxFn('patch', url, params, callback)
         }
-        ajaxFn('delete', url, params, callback)
-    }
-    // 上传文件
-    window.ajax.upload = function (url, file, callback) {
+        // delete 请求
+    window.ajax.delete = function(url, params, callback) {
+            if (typeof params === 'function') {
+                callback = params
+                params = {}
+            }
+            ajaxFn('delete', url, params, callback)
+        }
+        // 上传文件
+    window.ajax.upload = function(url, file, callback) {
         var formData = new FormData()
         formData.append('file', file)
         $.ajax({
