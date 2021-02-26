@@ -48,6 +48,8 @@ test('登录，应该成功', async() => {
 })
 */
 
+
+
 test('创建一条微博，应该成功', async() => {
     // 定义测试内容
     const content = '单元测试自动创建的微博_' + Date.now()
@@ -67,6 +69,26 @@ test('创建一条微博，应该成功', async() => {
 
     // 记录微博 id
     BLOG_ID = res.body.data.id
+})
+
+// json schema 检测
+test('json schema 检测，非法的格式，注册应该失败', async() => {
+    //输出随机字符串
+    const randStr = () => Math.random().toString(36).substr(2);
+    //字符串调整为len位
+    const supplyFunc = (str, len) => {
+        if (str.length > len) return str.substr(0, len);
+        if (str.length < len) return supplyFunc(str + randStr(), len);
+        return str;
+    }
+
+    const res = await server
+        .post('/api/blog/create')
+        .send({
+            content: '无所谓这里是TEXT',
+            image: supplyFunc(randStr(), 256),
+        })
+    expect(res.body.errno).not.toBe(0)
 })
 
 /********************** 后置任务 *************************/
