@@ -37,13 +37,11 @@ async function getBlogList({ userName, pageIndex = 0, pageSize = 10 }) {
         order: [
             ['id', 'desc']
         ],
-        include: [
-            {
-                model: User,
-                attributes: ['userName', 'nickName', 'picture'],
-                where: userWhereOpts
-            }
-        ]
+        include: [{
+            model: User,
+            attributes: ['userName', 'nickName', 'picture'],
+            where: userWhereOpts
+        }]
     })
 
     // result.count 总数，跟分页无关
@@ -80,7 +78,7 @@ async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
         include: [
             {
                 model: User,
-                attributes: ['userName', 'nickName', 'picture'],
+                attributes: ['userName', 'nickName', 'picture']
             },
             {
                 model: UserRelation,
