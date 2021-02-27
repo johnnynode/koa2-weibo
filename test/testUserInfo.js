@@ -14,5 +14,9 @@
 module.exports = {
     Z_ID: 1,
     Z_USER_NAME: 'zhangsan',
-    Z_COOKIE: 'weibo.sid=164DT3t6EMLEtPQgMDMrEBJ1NovHUVs_; weibo.sid.sig=bhyD0l3c9ZXa7voZ3aBbqQo84AQ;',
+    Z_COOKIE: 'weibo.sid=VK5hH2-WRa3TJe5SKpckcBP4BNX6nmbu; weibo.sid.sig=FNBhY83PICtnku1mXZFCPU-RDnI;',
+
+    L_ID: 2,
+    L_USER_NAME: 'lisi',
+    L_COOKIE: 'weibo.sid=Bm3turlepgoBO5LdbXodKWXwU_YHhXCY; weibo.sid.sig=exoPnV3q4HVAF32AtrXePtU1-SI'
 }
