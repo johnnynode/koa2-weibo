@@ -5,7 +5,7 @@
 
 const { getBlogList } = require('../../services/blog')
 const { PAGE_SIZE } = require('../../conf/constants')
-const { SuccessModel } = require('../../model/ResModel')
+const { SuccessModel } = require('../../model/resModel')
 
 /**
  * 获取个人主页微博列表
@@ -22,7 +22,7 @@ async function getProfileBlogList(userName, pageIndex = 0) {
 
     // 拼接返回数据
     return new SuccessModel({
-        isEmpty: !blogList.length,
+        isEmpty: !(blogList && blogList.length),
         blogList,
         pageSize: PAGE_SIZE,
         pageIndex,

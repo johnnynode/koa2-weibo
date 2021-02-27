@@ -30,21 +30,23 @@ const {
     Home: apiBlogHomeRouter,
     Profile: apiBlogProfileRouter,
     Square: apiBlogSquareRouter,
+    At: apiBlogAtRouter,
 } = require('./routes/api/blog') // api blog
-
-const apiUtilsRouter = require('./routes/api/utils')
+const apiUtilsRouter = require('./routes/api/utils') // api utils
 
 // view 相关路由整理
 const viewUserRouter = require('./routes/view/user') // view user
 const viewBlogRouter = require('./routes/view/blog') // view blog
-
 const viewErrorRouter = require('./routes/view/error') // 404或错误
 
 // 错误处理配置
-const errorConf = isProd ? { 'redirect': '/error' } : {}
-
-// error handler
-onerror(app, errorConf)
+let onerrorConf = {}
+if (isProd) {
+    onerrorConf = {
+        redirect: '/error'
+    }
+}
+onerror(app, onerrorConf)
 
 // middlewares
 app.use(bodyparser({
@@ -54,7 +56,6 @@ app.use(json())
 app.use(logger())
 app.use(koaStatic(__dirname + '/public'))
 app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
-
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
 }))
@@ -80,6 +81,7 @@ app.use(apiUserRouter.routes(), apiUserRouter.allowedMethods()) // 用户
 app.use(apiBlogHomeRouter.routes(), apiBlogHomeRouter.allowedMethods()) // 微博首页
 app.use(apiBlogProfileRouter.routes(), apiBlogProfileRouter.allowedMethods()) // 微博个人页
 app.use(apiBlogSquareRouter.routes(), apiBlogSquareRouter.allowedMethods()) // 微博广场页
+app.use(apiBlogAtRouter.routes(), apiBlogAtRouter.allowedMethods()) // 微博at
 app.use(apiUtilsRouter.routes(), apiUtilsRouter.allowedMethods()) // 工具
 
 // 路由配置 view

@@ -9,9 +9,7 @@ const {
     deleteUser,
     updateUser
 } = require('../services/user')
-
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-
 const {
     registerUserNameNotExistInfo,
     registerUserNameExistInfo,
@@ -21,8 +19,7 @@ const {
     changeInfoFailInfo,
     changePasswordFailInfo
 } = require('../model/errorInfo')
-
-const doCrypto = require('../utils/cryp') // 加密
+const doCrypto = require('../utils/cryp')
 
 /**
  * 用户名是否存在
@@ -30,13 +27,10 @@ const doCrypto = require('../utils/cryp') // 加密
  */
 async function isExist(userName) {
     const userInfo = await getUserInfo(userName)
-    if (userInfo) {
-        // { errno: 0, data: {....} }
-        return new SuccessModel(userInfo)
-    } else {
-        // { errno: 10003, message: '用户名未存在' }
-        return new ErrorModel(registerUserNameNotExistInfo)
-    }
+
+    // 成功 { errno: 0, data: {....} }
+    // 失败 { errno: 10003, message: '用户名未存在' }
+    return userInfo ? new SuccessModel(userInfo) : new ErrorModel(registerUserNameNotExistInfo)
 }
 
 /**
@@ -58,7 +52,7 @@ async function register({ userName, password, gender }) {
             password: doCrypto(password),
             gender
         })
-        return new SuccessModel() // 此处没有返回data, 可返回，可不返回
+        return new SuccessModel()
     } catch (ex) {
         console.error(ex.message, ex.stack)
         return new ErrorModel(registerFailInfo)
@@ -114,7 +108,7 @@ async function changeInfo(ctx, { nickName, city, picture }) {
         newPicture: picture
     }, { userName })
     if (result) {
-        // 执行成功 
+        // 执行成功
         Object.assign(ctx.session.userInfo, {
             nickName,
             city,
@@ -141,8 +135,12 @@ async function changePassword(userName, password, newPassword) {
         userName,
         password: doCrypto(password)
     })
-
-    return result ? new SuccessModel() : new ErrorModel(changePasswordFailInfo)
+    if (result) {
+        // 成功
+        return new SuccessModel()
+    }
+    // 失败
+    return new ErrorModel(changePasswordFailInfo)
 }
 
 /**

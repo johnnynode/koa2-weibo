@@ -3,8 +3,8 @@
  * @author johnnynode
  */
 
-const { ErrorModel } = require('../model/ResModel')
-const { loginCheckFailInfo } = require('../model/ErrorInfo')
+const { ErrorModel } = require('../model/resModel')
+const { loginCheckFailInfo } = require('../model/errorInfo')
 
 /**
  * API 登录验证 错误时，抛出错误信息
@@ -34,7 +34,7 @@ async function loginRedirect(ctx, next) {
     }
     // 未登录
     const curUrl = ctx.url
-    ctx.redirect('/login?url=' + encodeURIComponent(curUrl))
+    ctx.redirect('/user/login?url=' + encodeURIComponent(curUrl))
 }
 
 module.exports = {

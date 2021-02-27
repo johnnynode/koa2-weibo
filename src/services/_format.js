@@ -3,7 +3,7 @@
  * @author johnnynode
  */
 
-const { DEFAULT_PICTURE } = require('../conf/constants')
+const { DEFAULT_PICTURE, REG_FOR_AT_WHO } = require('../conf/constants')
 const { timeFormat } = require('../utils/dt')
 
 /**
@@ -11,7 +11,7 @@ const { timeFormat } = require('../utils/dt')
  * @param {Object} obj 用户对象
  */
 function _formatUserPicture(obj) {
-    if (!obj.picture) {
+    if (obj.picture == null) {
         obj.picture = DEFAULT_PICTURE
     }
     return obj
@@ -22,11 +22,12 @@ function _formatUserPicture(obj) {
  * @param {Array|Object} list 用户列表或者单个用户对象
  */
 function formatUser(list) {
-    if (!list) {
+    if (list == null) {
         return list
     }
-    // 数组 用户列表, 处理头像，当然也可能处理其他信息，后续可以添加
+
     if (list instanceof Array) {
+        // 数组 用户列表
         return list.map(_formatUserPicture)
     }
 
@@ -45,6 +46,26 @@ function _formatDBTime(obj) {
 }
 
 /**
+ * 格式化微博内容
+ * @param {Object} obj 微博数据对象
+ */
+function _formatContent(obj) {
+    obj.contentFormat = obj.content
+
+    // 格式化 @
+    // from '哈喽 @张三 - zhangsan 你好'
+    // to '哈喽 <a href="/profile/zhangsan">张三</a> 你好'
+    obj.contentFormat = obj.contentFormat.replace(
+        REG_FOR_AT_WHO,
+        (matchStr, nickName, userName) => {
+            return `<a href="/profile/${userName}">@${nickName}</a>`
+        }
+    )
+
+    return obj
+}
+
+/**
  * 格式化微博信息
  * @param {Array|Object} list 微博列表或者单个微博对象
  */
@@ -55,7 +76,7 @@ function formatBlog(list) {
 
     if (list instanceof Array) {
         // 数组
-        return list.map(_formatDBTime)
+        return list.map(_formatDBTime).map(_formatContent)
     }
     // 对象
     let result = list

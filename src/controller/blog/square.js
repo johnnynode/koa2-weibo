@@ -4,7 +4,7 @@
  */
 
 const { PAGE_SIZE } = require('../../conf/constants')
-const { SuccessModel } = require('../../model/ResModel')
+const { SuccessModel } = require('../../model/resModel')
 const { getSquareCacheList } = require('../../cache/blog')
 
 /**

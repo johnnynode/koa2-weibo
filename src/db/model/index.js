@@ -1,19 +1,17 @@
 /**
- * @description 数据模型入口文件, 统筹所有models
+ * @description 数据模型入口文件
  * @author johnnynode
  */
 
-const User = require('./user')
+const User = require('./User')
 const Blog = require('./Blog')
-
-// const UserRelation = require('./UserRelation')
-// const AtRelation = require('./AtRelation')
+const UserRelation = require('./UserRelation')
+const AtRelation = require('./AtRelation')
 
 Blog.belongsTo(User, {
     foreignKey: 'userId'
 })
 
-/*
 UserRelation.belongsTo(User, {
     foreignKey: 'followerId'
 })
@@ -29,11 +27,10 @@ Blog.belongsTo(UserRelation, {
 Blog.hasMany(AtRelation, {
     foreignKey: 'blogId'
 })
-*/
 
 module.exports = {
     User,
-    // UserRelation,
     Blog,
-    // AtRelation
+    UserRelation,
+    AtRelation
 }

@@ -4,8 +4,8 @@
  */
 
 const path = require('path')
-const { ErrorModel, SuccessModel } = require('../model/ResModel')
-const { uploadFileSizeFailInfo } = require('../model/ErrorInfo')
+const { ErrorModel, SuccessModel } = require('../model/resModel')
+const { uploadFileSizeFailInfo } = require('../model/errorInfo')
 const fse = require('fs-extra')
 
 // 存储目录
@@ -30,7 +30,7 @@ fse.pathExists(DIST_FOLDER_PATH).then(exist => {
  */
 async function saveFile({ name, type, size, filePath }) {
     if (size > MIX_SIZE) {
-        await fse.remove(filePath) // 删除该文件
+        await fse.remove(filePath)
         return new ErrorModel(uploadFileSizeFailInfo)
     }
 

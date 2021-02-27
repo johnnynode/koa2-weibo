@@ -5,6 +5,7 @@
 
 const { User } = require('../db/model/index')
 const { formatUser } = require('./_format')
+const { addFollower } = require('./user-relation')
 
 /**
  * 获取用户信息
@@ -25,14 +26,15 @@ async function getUserInfo(userName, password) {
         attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
         where: whereOpt
     })
-
-    // 未找到原值返回
     if (!result) {
+        // 未找到
         return result
     }
 
-    // 查到了，格式化并返回
-    return formatUser(result.dataValues)
+    // 格式化
+    const formatRes = formatUser(result.dataValues)
+
+    return formatRes
 }
 
 /**
@@ -46,10 +48,14 @@ async function createUser({ userName, password, gender = 3, nickName }) {
     const result = await User.create({
         userName,
         password,
-        nickName: nickName ? nickName : userName, // 是否这样，按需求来
+        nickName: nickName ? nickName : userName,
         gender
     })
     const data = result.dataValues
+
+    // 自己关注自己（为了方便首页获取数据）
+    addFollower(data.id, data.id)
+
     return data
 }
 

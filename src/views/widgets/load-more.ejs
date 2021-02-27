@@ -13,9 +13,7 @@
     // 加载更多
     $btnLoadMore.click(function() {
         var nextPageIndex = PAGE_INDEX + 1
-        var url = api + '/' + nextPageIndex
-        console.log('url: ' + url)
-        ajax.get(url, function(err, data) {
+        ajax.get(api + '/' + nextPageIndex, function(err, data) {
             if (err) {
                 // 失败
                 alert(err)

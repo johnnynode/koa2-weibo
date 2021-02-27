@@ -3,8 +3,8 @@
  * @author johnnynode
  */
 
-const { ErrorModel } = require('../model/ResModel')
-const { jsonSchemaFileInfo } = require('../model/ErrorInfo')
+const { ErrorModel } = require('../model/resModel')
+const { jsonSchemaFileInfo } = require('../model/errorInfo')
 
 /**
  * 生成 json schema 验证的中间件
