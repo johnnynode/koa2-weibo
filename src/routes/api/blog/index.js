@@ -7,8 +7,10 @@
 
 const Home = require('./home')
 const Profile = require('./profile')
+const Square = require('./square')
 
 module.exports = {
     Home,
-    Profile
+    Profile,
+    Square
 }

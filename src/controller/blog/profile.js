@@ -3,7 +3,7 @@
  * @author johnnynode
  */
 
-const { getBlogListByUser } = require('../../services/blog')
+const { getBlogList } = require('../../services/blog')
 const { PAGE_SIZE } = require('../../conf/constants')
 const { SuccessModel } = require('../../model/ResModel')
 
@@ -13,7 +13,7 @@ const { SuccessModel } = require('../../model/ResModel')
  * @param {number} pageIndex 当前页面
  */
 async function getProfileBlogList(userName, pageIndex = 0) {
-    const result = await getBlogListByUser({
+    const result = await getBlogList({
         userName,
         pageIndex,
         pageSize: PAGE_SIZE

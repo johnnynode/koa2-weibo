@@ -28,7 +28,8 @@ app.use(kjwt({
 const apiUserRouter = require('./routes/api/user') // api user
 const {
     Home: apiBlogHomeRouter,
-    Profile: apiBlogProfileRouter
+    Profile: apiBlogProfileRouter,
+    Square: apiBlogSquareRouter,
 } = require('./routes/api/blog') // api blog
 
 const apiUtilsRouter = require('./routes/api/utils')
@@ -78,6 +79,7 @@ app.use(session({
 app.use(apiUserRouter.routes(), apiUserRouter.allowedMethods()) // 用户
 app.use(apiBlogHomeRouter.routes(), apiBlogHomeRouter.allowedMethods()) // 微博首页
 app.use(apiBlogProfileRouter.routes(), apiBlogProfileRouter.allowedMethods()) // 微博个人页
+app.use(apiBlogSquareRouter.routes(), apiBlogSquareRouter.allowedMethods()) // 微博广场页
 app.use(apiUtilsRouter.routes(), apiUtilsRouter.allowedMethods()) // 工具
 
 // 路由配置 view
