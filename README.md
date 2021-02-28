@@ -61,6 +61,16 @@
 ### 线上环境
 
 - pm2 和 多进程
+    * cnpm i -g pm2
+    * npm run prd
+    * pm2 --version
+    * pm2 list
+    * pm2 restart www
+    * pm2 stop www
+    * pm2 delete www
+    * pm2 info www
+    * pm2 log www
+    * pm2 monit www
 - nginx和反向代理
 - 日志记录
 
