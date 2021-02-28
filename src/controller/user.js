@@ -18,7 +18,7 @@ const {
     deleteUserFailInfo,
     changeInfoFailInfo,
     changePasswordFailInfo
-} = require('../model/errorInfo')
+} = require('../conf/errorInfo')
 const doCrypto = require('../utils/cryp')
 
 /**

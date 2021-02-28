@@ -4,7 +4,7 @@
  */
 
 const { ErrorModel } = require('../model/resModel')
-const { loginCheckFailInfo } = require('../model/errorInfo')
+const { loginCheckFailInfo } = require('../conf/errorInfo')
 
 /**
  * API 登录验证 错误时，抛出错误信息

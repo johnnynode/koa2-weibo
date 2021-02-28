@@ -10,7 +10,7 @@ const {
     deleteFollower
 } = require('../services/user-relation')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/errorInfo')
+const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../conf/errorInfo')
 
 /**
  * 根据 userid 获取粉丝列表

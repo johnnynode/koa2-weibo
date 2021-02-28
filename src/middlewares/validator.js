@@ -4,7 +4,7 @@
  */
 
 const { ErrorModel } = require('../model/resModel')
-const { jsonSchemaFileInfo } = require('../model/errorInfo')
+const { jsonSchemaFileInfo } = require('../conf/errorInfo')
 
 /**
  * 生成 json schema 验证的中间件

@@ -6,7 +6,7 @@
 const xss = require('xss')
 const { createBlog, getFollowersBlogList } = require('../../services/blog')
 const { SuccessModel, ErrorModel } = require('../../model/resModel')
-const { createBlogFailInfo } = require('../../model/errorInfo')
+const { createBlogFailInfo } = require('../../conf/errorInfo')
 const { PAGE_SIZE, REG_FOR_AT_WHO } = require('../../conf/constants')
 const { getUserInfo } = require('../../services/user')
 const { createAtRelation } = require('../../services/at-relation')

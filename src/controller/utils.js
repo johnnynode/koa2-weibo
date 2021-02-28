@@ -5,7 +5,7 @@
 
 const path = require('path')
 const { ErrorModel, SuccessModel } = require('../model/resModel')
-const { uploadFileSizeFailInfo } = require('../model/errorInfo')
+const { uploadFileSizeFailInfo } = require('../conf/errorInfo')
 const fse = require('fs-extra')
 
 // 存储目录
