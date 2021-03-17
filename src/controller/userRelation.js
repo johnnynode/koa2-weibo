@@ -4,20 +4,20 @@
  */
 
 const {
-    getUsersByFollower,
-    getFollowersByUser,
-    addFollower,
-    deleteFollower
-} = require('../services/user-relation')
+    getUsersByFollowId,
+    getFollowByUserId,
+    addFollow,
+    deleteFollow
+} = require('../services/userRelation')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../conf/errorInfo')
+const { addFollowFailInfo, deleteFollowFailInfo } = require('../conf/errorInfo')
 
 /**
  * 根据 userid 获取粉丝列表
  * @param {number} userId 用户 id
  */
 async function getFans(userId) {
-    const { count, userList } = await getUsersByFollower(userId)
+    const { count, userList } = await getUsersByFollowId(userId)
 
     // 返回
     return new SuccessModel({
@@ -30,12 +30,12 @@ async function getFans(userId) {
  * 获取关注人列表
  * @param {number} userId userId
  */
-async function getFollowers(userId) {
-    const { count, userList } = await getFollowersByUser(userId)
+async function getFollow(userId) {
+    const { count, userList } = await getFollowByUserId(userId)
 
     return new SuccessModel({
         count,
-        followersList: userList
+        followList: userList
     })
 }
 
@@ -46,11 +46,11 @@ async function getFollowers(userId) {
  */
 async function follow(myUserId, curUserId) {
     try {
-        await addFollower(myUserId, curUserId)
+        await addFollow(myUserId, curUserId)
         return new SuccessModel()
     } catch (ex) {
         console.error(ex)
-        return new ErrorModel(addFollowerFailInfo)
+        return new ErrorModel(addFollowFailInfo)
     }
 }
 
@@ -60,13 +60,13 @@ async function follow(myUserId, curUserId) {
  * @param {number} curUserId 要被关注的用户 id
  */
 async function unFollow(myUserId, curUserId) {
-    const result = await deleteFollower(myUserId, curUserId)
-    return result ? new SuccessModel() : new ErrorModel(deleteFollowerFailInfo)
+    const result = await deleteFollow(myUserId, curUserId)
+    return result ? new SuccessModel() : new ErrorModel(deleteFollowFailInfo)
 }
 
 module.exports = {
     getFans,
-    getFollowers,
+    getFollow,
     follow,
     unFollow
 }

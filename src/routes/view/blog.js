@@ -8,7 +8,7 @@ const { loginRedirect } = require('../../middlewares/loginChecks')
 const { getProfileBlogList } = require('../../controller/blog/profile')
 const { getSquareBlogList } = require('../../controller/blog/square')
 const { isExist } = require('../../controller/user')
-const { getFans, getFollowers } = require('../../controller/user-relation')
+const { getFans, getFollow } = require('../../controller/userRelation')
 const { getHomeBlogList } = require('../../controller/blog/index')
 const { getAtMeCount, getAtMeBlogList, markAsRead } = require('../../controller/blog/at')
 
@@ -26,8 +26,8 @@ router.get('/', loginRedirect, async(ctx, next) => {
     const { count: fansCount, fansList } = fansResult.data
 
     // 获取关注人列表
-    const followersResult = await getFollowers(userId)
-    const { count: followersCount, followersList } = followersResult.data
+    const followResult = await getFollow(userId)
+    const { count: followCount, followList } = followResult.data
 
     // 获取 @ 数量
     const atCountResult = await getAtMeCount(userId)
@@ -40,9 +40,9 @@ router.get('/', loginRedirect, async(ctx, next) => {
                 count: fansCount,
                 list: fansList
             },
-            followersData: {
-                count: followersCount,
-                list: followersList
+            followData: {
+                count: followCount,
+                list: followList
             },
             atCount
         },
@@ -92,8 +92,8 @@ router.get('/profile/:userName', loginRedirect, async(ctx, next) => {
     const { count: fansCount, fansList } = fansResult.data
 
     // 获取关注人列表
-    const followersResult = await getFollowers(curUserInfo.id)
-    const { count: followersCount, followersList } = followersResult.data
+    const followResult = await getFollow(curUserInfo.id)
+    const { count: followCount, followList } = followResult.data
 
     // 我是否关注了此人？
     const amIFollowed = fansList.some(item => {
@@ -119,9 +119,9 @@ router.get('/profile/:userName', loginRedirect, async(ctx, next) => {
                 count: fansCount,
                 list: fansList
             },
-            followersData: {
-                count: followersCount,
-                list: followersList
+            followData: {
+                count: followCount,
+                list: followList
             },
             amIFollowed,
             atCount

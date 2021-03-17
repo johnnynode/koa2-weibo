@@ -17,7 +17,7 @@ const userValidate = require('../../validator/user')
 const { genValidator } = require('../../middlewares/validator')
 const { isTest } = require('../../utils/env')
 const { loginCheck } = require('../../middlewares/loginChecks')
-const { getFollowers } = require('../../controller/user-relation')
+const { getFollow } = require('../../controller/userRelation')
 
 router.prefix('/api/user')
 
@@ -73,9 +73,9 @@ router.post('/logout', loginCheck, async(ctx, next) => {
 // 获取 at 列表，即关注人列表
 router.get('/getAtList', loginCheck, async(ctx, next) => {
     const { id: userId } = ctx.session.userInfo
-    const result = await getFollowers(userId)
-    const { followersList } = result.data
-    const list = followersList.map(user => {
+    const result = await getFollow(userId)
+    const { followList } = result.data
+    const list = followList.map(user => {
         return `${user.nickName} - ${user.userName}`
     })
 

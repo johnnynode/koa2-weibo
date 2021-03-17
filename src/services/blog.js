@@ -68,7 +68,7 @@ async function getBlogList({ userName, pageIndex = 0, pageSize = 10 }) {
  * 获取关注着的微博列表（首页）
  * @param {Object} param0 查询条件 { userId, pageIndex = 0, pageSize = 10 }
  */
-async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
+async function getFollowBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
     const result = await Blog.findAndCountAll({
         limit: pageSize, // 每页多少条
         offset: pageSize * pageIndex, // 跳过多少条
@@ -105,5 +105,5 @@ async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
 module.exports = {
     createBlog,
     getBlogList,
-    getFollowersBlogList
+    getFollowBlogList
 }
