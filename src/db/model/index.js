@@ -12,16 +12,18 @@ Blog.belongsTo(User, {
     foreignKey: 'userId'
 })
 
+/* ********** 用户关系表关系处理开始 ********** */
 UserRelation.belongsTo(User, {
-    foreignKey: 'followerId'
+    foreignKey: 'followId'
 })
 User.hasMany(UserRelation, {
     foreignKey: 'userId'
 })
+/* ********** 用户关系表关系处理结束 ********** */
 
 Blog.belongsTo(UserRelation, {
     foreignKey: 'userId',
-    targetKey: 'followerId'
+    targetKey: 'followId'
 })
 
 Blog.hasMany(AtRelation, {

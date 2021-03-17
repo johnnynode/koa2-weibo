@@ -82,7 +82,7 @@ async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
             },
             {
                 model: UserRelation,
-                attributes: ['userId', 'followerId'],
+                attributes: ['userId', 'followId'],
                 where: { userId }
             }
         ]

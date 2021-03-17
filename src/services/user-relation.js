@@ -9,9 +9,9 @@ const Sequelize = require('sequelize')
 
 /**
  * 获取关注该用户的用户列表，即该用户的粉丝
- * @param {number} followerId 被关注人的 id
+ * @param {number} followId 被关注人的 id
  */
-async function getUsersByFollower(followerId) {
+async function getUsersByFollower(followId) {
     const result = await User.findAndCountAll({
         attributes: ['id', 'userName', 'nickName', 'picture'],
         order: [
@@ -20,9 +20,9 @@ async function getUsersByFollower(followerId) {
         include: [{
             model: UserRelation,
             where: {
-                followerId,
+                followId,
                 userId: {
-                    [Sequelize.Op.ne]: followerId
+                    [Sequelize.Op.ne]: followId
                 }
             }
         }]
@@ -56,7 +56,7 @@ async function getFollowersByUser(userId) {
         }],
         where: {
             userId,
-            followerId: {
+            followId: {
                 [Sequelize.Op.ne]: userId
             }
         }
@@ -83,12 +83,12 @@ async function getFollowersByUser(userId) {
 /**
  * 添加关注关系
  * @param {number} userId 用户 id
- * @param {number} followerId 被关注用户 id
+ * @param {number} followId 被关注用户 id
  */
-async function addFollower(userId, followerId) {
+async function addFollower(userId, followId) {
     const result = await UserRelation.create({
         userId,
-        followerId
+        followId
     })
     return result.dataValues
 }
@@ -96,13 +96,13 @@ async function addFollower(userId, followerId) {
 /**
  * 删除关注关系
  * @param {number} userId 用户 id
- * @param {number} followerId 被关注用户 id
+ * @param {number} followId 被关注用户 id
  */
-async function deleteFollower(userId, followerId) {
+async function deleteFollower(userId, followId) {
     const result = await UserRelation.destroy({
         where: {
             userId,
-            followerId
+            followId
         }
     })
     return result > 0

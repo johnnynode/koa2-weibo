@@ -1,5 +1,5 @@
 /**
- * @description 用户关注关系
+ * @description 用户关注关系, 关注和取消
  * @author johnnynode
  */
 
@@ -12,7 +12,8 @@ const UserRelation = seq.define('userRelation', {
         allowNull: false,
         comment: '用户 id'
     },
-    followerId: {
+    // 关注谁
+    followId: {
         type: INTEGER,
         allowNull: false,
         comment: '被关注用户的 id'
