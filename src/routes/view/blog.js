@@ -75,7 +75,7 @@ router.get('/profile/:userName', loginRedirect, async(ctx, next) => {
     } else {
         // 不是当前登录用户
         const existResult = await isExist(curUserName)
-        if (existResult.errno !== 0) {
+        if (existResult.errno) {
             // 用户名不存在
             return
         }

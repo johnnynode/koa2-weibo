@@ -22,7 +22,7 @@ async function getUsersByFollowId(followId) {
             where: {
                 followId,
                 userId: {
-                    [Sequelize.Op.ne]: followId
+                    [Sequelize.Op.ne]: followId // Op => Option ne => not equal 不等于，查出的关注人不等于自己
                 }
             }
         }]
